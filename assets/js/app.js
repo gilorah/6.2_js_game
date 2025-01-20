@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createPlatforms() {
         for (let i = 0; i < platformCount; i++) {
-            let platformSpace = 600 / platformCount
+            let platformSpace = 600 / platformCount //om ruimte tussen platforms te bepalen
             let newPlatBottom = 100 + i * platformSpace
             let newPlatform = new Platform(newPlatBottom)
             platforms.push(newPlatform)
@@ -48,13 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function movePlatforms() {
-        if (doodlerBottomSpace > 200) {
+        if (doodlerBottomSpace > 180) {
             platforms.forEach(platform => {
                 platform.bottom -= 4
                 let visual = platform.visual
                 visual.style.bottom = platform.bottom + 'px'
 
-                if (platform.bottom < 10){
+                if (platform.bottom < 8){
                     let firstPlatform = platforms[0].visual
                     firstPlatform.classList.remove('platform')
                     platforms.shift()
@@ -68,13 +68,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function jump() {
-        clearInterval(downTimerId); // Ensure falling stops when jumping starts
-    isJumping = true;
+        clearInterval(downTimerId) // zorgt dat vallen stopt terwijl doodler springt
+    isJumping = true
     upTimerId = setInterval(function () {
-        doodlerBottomSpace += 20; // Increment bottom space
+        doodlerBottomSpace += 20 // Increment bottom space
         doodler.style.bottom = doodlerBottomSpace + 'px';
 
-        if (doodlerBottomSpace > startPoint + 200) {
+        if (doodlerBottomSpace > startPoint + 180) {
             console.log('Reached peak, starting to fall');
             fall();
         }
@@ -179,3 +179,12 @@ document.addEventListener('DOMContentLoaded', () => {
     //make Homescreen and attach to a button
     start()
 })
+
+// to do list:
+// zorgen dat doodler niet meer via bovenkant eruit kan 
+// doodler afbeelding veranderen 
+// score manier veranderen
+// game over scherm maken 
+// coins toevoegen
+// score laten opslaan??
+// if function maken dat na een bepaalde score platforms tussen de 1 en 5 komen
