@@ -68,26 +68,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function jump() {
-        clearInterval; (downTimerId)
-        isJumping = true
-        upTimerId = setInterval(function () {
-            doodlerBottomSpace += 20
-            doodler.style.bottom = doodlerBottomSpace + 'px'
-            if (doodlerBottomSpace > startPoint + 200) {
-                fall()
-            }
-        }, 30)
-    }
+        clearInterval(downTimerId); // Ensure falling stops when jumping starts
+    isJumping = true;
+    upTimerId = setInterval(function () {
+        doodlerBottomSpace += 20; // Increment bottom space
+        doodler.style.bottom = doodlerBottomSpace + 'px';
+
+        if (doodlerBottomSpace > startPoint + 200) {
+            console.log('Reached peak, starting to fall');
+            fall();
+        }
+    }, 30);
+}
 
     function fall() {
-        clearInterval(upTimerId)
-        isJumping = false
+        clearInterval(upTimerId); // Stop jumping
+        clearInterval(downTimerId); // Clear any existing fall interval
+        isJumping = false;
         downTimerId = setInterval(function () {
-            doodlerBottomSpace -= 5
-            doodler.style.bottom = doodlerBottomSpace + 'px'
+            doodlerBottomSpace -= 5; // Reduce bottom space
+            doodler.style.bottom = doodlerBottomSpace + 'px';
+    
             if (doodlerBottomSpace <= 0) {
-                gameOver()
+                gameOver();
             }
+    
             platforms.forEach(platform => {
                 if (
                     (doodlerBottomSpace >= platform.bottom) &&
@@ -96,14 +101,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     (doodlerLeftSpace <= (platform.left + 85)) &&
                     !isJumping
                 ) {
-                    console.log('landed')
-                    startPoint = doodlerBottomSpace
-                    jump()
+                    console.log('Landed on platform');
+                    startPoint = doodlerBottomSpace;
+                    jump(); // Transition back to jump
                 }
-            })
-        }, 30)
+            });
+        }, 10);
     }
-
+    
     function controls(e) {
         if (e.key === "ArrowLeft") {
             moveLeft()
@@ -115,11 +120,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function moveLeft(){
-        if (isGoingRight){
-            clearInterval(rightTimerId)
-            isGoingRight = false
-        }
-     isGoingLeft = true
+        clearInterval(leftTimerId);
+        clearInterval(rightTimerId);
+        isGoingRight = false
+      isGoingLeft = true
      leftTimerId = setInterval(function(){
         if (doodlerLeftSpace >= 0){
             doodlerLeftSpace -=5
@@ -130,10 +134,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function moveRight(){
-        if (isGoingLeft){
-            clearInterval(leftTimerId)
-            isGoingLeft = false
-        }
+        clearInterval(leftTimerId);
+    clearInterval(rightTimerId);
+        isGoingLeft = false
         isGoingRight = true
         rightTimerId = setInterval(function(){
            if (doodlerLeftSpace <= 340){
@@ -166,17 +169,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     function start() {
-       // if (!isGameOver) {
-            createPlatforms()
-            createDoodler()
-            setInterval(movePlatforms, 30)
-            jump()
-            document.addEventListener('keyup',controls)
-       // }
+        createPlatforms();
+        createDoodler();
+        setInterval(movePlatforms, 30);
+        jump();
+        document.addEventListener('keyup', controls);
     }
 
     //make Homescreen and attach to a button
     start()
 })
-
-// 40min van tutorial
