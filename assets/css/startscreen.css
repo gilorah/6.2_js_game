@@ -1,0 +1,36 @@
+body{
+    background-color: #000;
+}
+
+.tiny5-regular {
+    font-family: "Tiny5", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+
+.text_space{
+    margin: auto;
+    width: 26.041666666666668vw;
+    height: 54.794520547945204vh;
+    border: 3px solid #fff;
+    color: #fff;
+    text-align: center;
+}
+
+p1{
+    color: #87a67e;
+}
+
+h1{
+    color:#aed4a3;
+}
+
+h2{
+    color: #cad9c5
+}
+
+a{
+    text-decoration: none;
+    color: #87a67e;
+}
